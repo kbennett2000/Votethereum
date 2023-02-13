@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VOTEthereum dApp</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="container">
+  <h1>VOTEthereum</h1>
+  <!-- <div id="banner"><img src="./images/banner.jpg"/></div> -->
+  <div id="address"></div>
+    <br />
+    <div><h2></h2></div>
+    <div id="theMessage"></div>
+    <br />
+    <div><h2></h2></div>
+    <div id="theError"></div>
+    <br />
+    <br />
+    <div>
+	<select id='actors'>
+		<option value="0">Chairperson</option>	
+		<option value="1">Alice</option>	
+		<option value="2">Bob</option>	
+        <option value="3">Carol</option>	
+        <option value="4">Doug</option>
+        <option value="5">Edward</option>
+        <option value="6">Francis</option>
+        <option value="7">George</option>
+        <option value="8">Heather</option>
+        <option value="9">Irene</option>
+        <option value="10">Jackie</option>
+        <option value="11">Kurt</option>
+        <option value="12">LuAnn</option>
+        <option value="13">Marilyn</option>
+	</select>
+    </div>
+
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Dashboard')">Dashboard</button>
+        <button class="tablinks" onclick="openTab(event, 'ElectionParameters')">Set Election Parameters</button>
+        <button class="tablinks" onclick="openTab(event, 'ManageElections')">Manage Elections</button>
+        <button class="tablinks" onclick="openTab(event, 'ManageElectionOptions')">Manage Election Options</button>
+        <button class="tablinks" onclick="openTab(event, 'CastVotes')">Cast / Uncast Votes</button>
+        <button class="tablinks" onclick="openTab(event, 'GetResults')">Get Results</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="Dashboard" class="tabcontent">
+        <h3>Dashboard</h3>
+        <p>An overview of the parameters for this voting session.</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Contract Address:</th>
+                <th>Election Chairperson: </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td id="ContractAddress"></td>
+                <td id="ElectionChairpersonDisplay"></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Voting Session Name: </th>
+                <th>Start Time: </th>
+                <th>End Time: </th>
+                <th>Real Time Results: </th>
+                <th>Max Votes Per Election: </th> 
+                <th>Now: </th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td id="VotingSessionNameDisplay"></td>
+                <td id="StartTimeDisplay"></td>
+                <td id="EndTimeDisplay"></td>
+                <td id="RealTimeResultsDisplay"></td>
+                <td id="MaxVotesPerElectionDisplay"></td>
+                <td id="NowDisplay"></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+
+
+        <h3>Who am I?</h3>
+        <p>Find your hex address</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>I am: </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td id="whoAmI"></td>
+                </tr>
+                <tr>
+                <td id=""><a href="#" onclick="getWhoAmI()" class="btn btn-primary">Find Out</a></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+
+        <h3>Election Names</h3>
+        <p>View all elections</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Election Name: </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td id="ElectionNames"></td>
+                </tr>
+                <tr>
+                <td id=""><a href="#" onclick="getAllElectionNames()" class="btn btn-primary">Refresh</a></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+
+        <h3>View Options in an Election</h3>
+        <p>Select an Election to view Options</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Option Name: </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td id="OptionNames"></td>
+                </tr>
+                <tr>
+                <!--<td id=""><input type="text" id="thisElectionName" /></td>-->
+                <td id="selectElectionName"></td>
+                </tr>
+                <tr>
+                <td id=""><a href="#" onclick="getElectionOptionNames()" class="btn btn-primary">Refresh</a></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+    </div>
+
+    <div id="ElectionParameters" class="tabcontent">
+        <h3>Set Election Parameters</h3>
+        <p>Use these controls to set the Start and End Times, Max Votes per Election, and Real Time Result reporting.</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <tbody>
+                <tr>
+                <td id="" colspan=3><h2>Set Start Time</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Start Time: </td>
+                <td id=""><input type="text" id="StartTime" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id=""><a href="#" onclick="setStartTime()" class="btn btn-primary">Set</a></td>
+                <td id="">&nbsp;</td>
+                </tr>
+            <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                <td id="" colspan=3><h2>Set End Time</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">End Time: </td>
+                <td id=""><input type="text" id="EndTime" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id=""><a href="#" onclick="setEndTime()" class="btn btn-primary">Set</a></td>
+                <td id="">&nbsp;</td>
+                </tr>
+            <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                <td id="" colspan=3><h2>Set Max Votes Per Election</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Max Votes per Election: </td>
+                <td id=""><input type="text" id="MaxVotesPerElection" /></td>
+                </tr>
+                <tr>
+                <td id=""></td>
+                <td id=""><a href="#" onclick="setMaxVotesPerElection()" class="btn btn-primary">Set</a></td>
+                <td id=""></td>
+                </tr>
+            <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                <td id="" colspan=3><h2>Return Real Time Results</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Return Real Time Results: </td>
+                <td id=""><input type="text" id="RealTimeResults" /></td>
+                </tr>
+                <tr>
+                <td id=""></td>
+                <td id=""><a href="#" onclick="setRealTimeResults()" class="btn btn-primary">Set</a></td>
+                <td id=""></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="ManageElections" class="tabcontent">
+        <h3>Manage Elections</h3>
+        <p>Use these controls to add, validate, and remove elections from this Voting Session.</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <tbody>
+                <tr>
+                <td id="" colspan=3><h2>Add a new Election</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Election Name: </td>
+                <td id=""><input type="text" id="ElectionNameAdd" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id=""><a href="#" onclick="addElection()" class="btn btn-primary">Add Election</a></td>
+                <td id="">&nbsp;</td>
+                </tr>
+            <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                <td id="" colspan=3><h2>Validate an Election</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Election Name: </td>
+                <td id=""><input type="text" id="ElectionNameValidate" /></td>
+                </tr>
+                <tr>
+                <td id=""></td>
+                <td id=""><a href="#" onclick="validateElectionName()" class="btn btn-primary">Validate Election</a></td>
+                <td id=""></td>
+                </tr>
+                <tr>
+                <td id="" colspan=3><h2>Remove an Election</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Election Name: </td>
+                <td id=""><input type="text" id="ElectionNameRemove" /></td>
+                </tr>
+                <tr>
+                <td id=""></td>
+                <td id=""><a href="#" onclick="removeElection()" class="btn btn-primary">Remove Election</a></td>
+                <td id=""></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="ManageElectionOptions" class="tabcontent">
+        <h3>Manage Election Options (candidates)</h3>
+        <p>Use these controls to add, validate, or remove options/candidates in an election.</p>
+        <br />
+        <div class="table-responsive">
+        <table class="table table-bordered">
+        <tbody>
+            <tr>
+            <td id="" colspan=3><h2>Add a new Election Option/Candidate</h2></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Election Name: </td>
+            <td id=""><input type="text" id="ElectionNameAddVotingItem" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Option Name: </td>
+            <td id=""><input type="text" id="OptionNameAddVotingItem" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id=""><a href="#" onclick="addVotingItem()" class="btn btn-primary">Add Election Option</a></td>
+            <td id="">&nbsp;</td>
+            </tr>
+        <tr><td colspan=3>&nbsp;</td></tr>
+            <tr>
+            <td id="" colspan=3><h2>Validate an Election Option</h2></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Election Name: </td>
+            <td id=""><input type="text" id="ElectionNameValidateOption" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Option Name: </td>
+            <td id=""><input type="text" id="OptionNameValidateOption" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id=""><a href="#" onclick="validateElectionOptionName()" class="btn btn-primary">Validate Election Option</a></td>
+            <td id=""></td>
+            </tr>
+        <tr><td colspan=3>&nbsp;</td></tr>
+            <tr>
+            <td id="" colspan=3><h2>Remove an Election Option</h2></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Election Name: </td>
+            <td id=""><input type="text" id="ElectionNameRemoveOption" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="">Option Name: </td>
+            <td id=""><input type="text" id="OptionNameRemoveOption" /></td>
+            </tr>
+            <tr>
+            <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id=""><a href="#" onclick="removeElectionOption()" class="btn btn-primary">Remove Election Option</a></td>
+            <td id=""></td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+
+    </div>
+
+    <div id="CastVotes" class="tabcontent">
+        <h3>Cast & Uncast Votes</h3>
+        <p>Use these controls to cast and uncast votes during the voting period.</p>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+            <tbody>
+                <tr>
+                <td id="" colspan=3><h2>Cast a Vote</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Election Name: </td>
+                <td id=""><input type="text" id="ElectionNameCastVote" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Option Name: </td>
+                <td id=""><input type="text" id="OptionNameCastVote" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Vote Balance: </td>
+                <td id=""><input type="text" id="VoteBalanceCastVote" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id=""><a href="#" onclick="castVote()" class="btn btn-primary">Cast a Vote</a></td>
+                <td id=""></td>
+                </tr>
+                <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                <td id="" colspan=3><h2>Uncast a Vote</h2></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Election Name: </td>
+                <td id=""><input type="text" id="ElectionNameUncastVote" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id="">Option Name: </td>
+                <td id=""><input type="text" id="OptionNameUncastVote" /></td>
+                </tr>
+                <tr>
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td id=""><a href="#" onclick="uncastVote()" class="btn btn-primary">Uncast a Vote</a></td>
+                <td id=""></td>
+                </tr>	
+
+                <tr><td colspan=3>&nbsp;</td></tr>
+                <tr>
+                    <td id="" colspan=3><h2>Get Voter Balance for Election</h2></td>
+                    </tr>
+                    <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id="">Election Name: </td>
+                    <td id=""><input type="text" id="ElectionNameGetVoterBalance" /></td>
+                    </tr>
+                    <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id=""><a href="#" onclick="getVoterBalanceSpentForElection()" class="btn btn-primary">Get Balance</a></td>
+                    <td id=""></td>
+                    </tr>             
+
+
+
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="GetResults" class="tabcontent">
+        <h3>Get Results</h3>
+        <p>Use these controls to get individual and total results.</p>
+        <br />
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>            
+                <tr>
+                    <td id="" colspan=3><h2>Get Vote Tally for Election Option/Candidate</h2></td>
+                </tr>
+                <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id="">Election Name: </td>
+                    <td id=""><input type="text" id="ElectionNameGetVoteTally" /></td>
+                </tr>
+                <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id="">Option Name: </td>		
+                    <td id=""><input type="text" id="OptionNameGetVoteTally" /></td>
+                </tr>
+                <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id=""><a href="#" onclick="getVoteTally()" class="btn btn-primary">Get Vote Tally</a></td>
+                    <td id=""></td>
+                </tr>
+
+                <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <tr>
+                    <td id="" colspan=3><h2>Get Election Results</h2></td>
+                </tr>
+                <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id="">Election Name: </td>
+                    <td id=""><input type="text" id="ElectionNameGetResults" /></td>
+                </tr>
+                <tr>
+                    <td id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td id=""><a href="#" onclick="getElectionResults()" class="btn btn-primary">Get Election Results</a></td>
+                    <td id=""></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+  
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+  </div>
+
+
+</body>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="app.js"></script>
+</html>
